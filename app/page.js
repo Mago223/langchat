@@ -17,6 +17,7 @@ export default function Home() {
     setMessages((messages) => [
       ...messages,
       { role: "user", content: message },
+      { role: "assistant", content: "" },
     ]);
     const response = await fetch("/api/chat", {
       method: "POST",
@@ -24,13 +25,27 @@ export default function Home() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify([...messages, { role: "user", content: message }]),
-    });
+    }).then(async (res) => {
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
 
-    const data = await response.json();
-    setMessages((messages) => [
-      ...messages,
-      { role: "assistant", content: data.message },
-    ]);
+      let result = "";
+      return reader.read().then(function processText({ done, value }) {
+        if (done) {
+          return result;
+        }
+        const text = decoder.decode(value || new Int8Array(), { stream: true });
+        setMessages((messages) => {
+          let lastMessage = messages[messages.length - 1];
+          let otherMessages = messages.slice(0, messages.length - 1);
+          return [
+            ...otherMessages,
+            { ...lastMessage, content: lastMessage.content + text },
+          ];
+        });
+        return reader.read().then(processText);
+      });
+    });
   };
 
   return (
@@ -56,6 +71,22 @@ export default function Home() {
           flexGrow={1}
           overflow="auto"
           maxHeight="100%"
+          sx={{
+            "&::-webkit-scrollbar": {
+              width: "8px",
+            },
+            "&::-webkit-scrollbar-track": {
+              background: "#f1f1f1",
+              borderRadius: "10px",
+            },
+            "&::-webkit-scrollbar-thumb": {
+              background: "#888",
+              borderRadius: "10px",
+            },
+            "&::-webkit-scrollbar-thumb:hover": {
+              background: "#555",
+            },
+          }}
         >
           {messages.map((message, index) => (
             <Box
