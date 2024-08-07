@@ -56,14 +56,23 @@ export default function Home() {
       flexDirection="column"
       justifyContent="center"
       alignItems="center"
+      sx={{
+        background:
+          "linear-gradient(179.4deg, rgb(253, 240, 233) 2.2%, rgb(255, 194, 203) 96.2%)",
+      }}
     >
       <Stack
         direction={"column"}
         width="500px"
         height="700px"
-        border="1px solid black"
-        p={2}
+        border="1px solid #f48db4"
+        borderRadius="24px"
+        p={3}
         spacing={3}
+        bgcolor="rgba(255, 255, 255, 0.9)"
+        sx={{
+          boxShadow: "0px 8px 30px rgba(244, 141, 180, 0.2)",
+        }}
       >
         <Stack
           direction={"column"}
@@ -73,18 +82,18 @@ export default function Home() {
           maxHeight="100%"
           sx={{
             "&::-webkit-scrollbar": {
-              width: "8px",
+              width: "6px",
             },
             "&::-webkit-scrollbar-track": {
-              background: "#f1f1f1",
-              borderRadius: "10px",
+              background: "rgba(244, 141, 180, 0.1)",
+              borderRadius: "8px",
             },
             "&::-webkit-scrollbar-thumb": {
-              background: "#888",
-              borderRadius: "10px",
+              background: "rgba(244, 141, 180, 0.5)",
+              borderRadius: "8px",
             },
             "&::-webkit-scrollbar-thumb:hover": {
-              background: "#555",
+              background: "rgba(244, 141, 180, 0.7)",
             },
           }}
         >
@@ -97,14 +106,22 @@ export default function Home() {
               }
             >
               <Box
-                bgcolor={
-                  message.role === "assistant"
-                    ? "primary.main"
-                    : "secondary.main"
-                }
+                bgcolor={message.role === "assistant" ? "#ff88b7" : "#b388ff"}
                 color="white"
-                borderRadius={16}
-                p={3}
+                textAlign="left"
+                borderRadius={
+                  message.role === "assistant"
+                    ? "20px 20px 20px 4px"
+                    : "20px 20px 4px 20px"
+                }
+                p={2}
+                maxWidth="70%"
+                sx={{
+                  boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.1)",
+                  fontFamily: "'Roboto', sans-serif",
+                  fontSize: "14px",
+                  lineHeight: "1.5",
+                }}
               >
                 {message.content}
               </Box>
@@ -117,8 +134,36 @@ export default function Home() {
             fullWidth
             value={message}
             onChange={(e) => setMessage(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+              }
+            }}
+            variant="outlined"
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                borderRadius: "20px",
+                "&.Mui-focused fieldset": {
+                  borderColor: "#f48db4",
+                },
+              },
+              "& .MuiInputLabel-root.Mui-focused": {
+                color: "#f48db4",
+              },
+            }}
           />
-          <Button variant="contained" onClick={sendMessage}>
+          <Button
+            variant="contained"
+            onClick={sendMessage}
+            sx={{
+              borderRadius: "20px",
+              backgroundColor: "#f48db4",
+              "&:hover": {
+                backgroundColor: "#f06292",
+              },
+            }}
+          >
             Send
           </Button>
         </Stack>
