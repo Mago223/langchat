@@ -16,17 +16,46 @@ import {
   PersonOutlined,
 } from "@mui/icons-material";
 import Link from "next/link";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+import { useRouter } from "next/navigation";
+import { auth } from "../../firebase";
 
 function Signup() {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const router = useRouter();
 
-  function handleSignup(e) {
+  const handleSignup = (e) => {
     e.preventDefault();
-    // Add your signup logic here
-    console.log("Signup attempt with:", fullName, email, password);
-  }
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed up
+        const user = userCredential.user;
+
+        // Update the user's display name
+        updateProfile(user, {
+          displayName: fullName,
+        })
+          .then(() => {
+            // Redirect the user to the desired page (e.g., dashboard)
+            router.push("/home");
+          })
+          .catch((error) => {
+            setError(error.message);
+          });
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        setError(errorMessage);
+      });
+  };
 
   return (
     <Box
@@ -150,6 +179,11 @@ function Signup() {
                   },
                 }}
               />
+              {error && (
+                <Typography color="error" variant="body2" sx={{ mt: 2 }}>
+                  {error}
+                </Typography>
+              )}
               <Button
                 type="submit"
                 variant="contained"
@@ -172,6 +206,7 @@ function Signup() {
               </Button>
             </Stack>
           </form>
+
           <Box textAlign="center">
             <Typography variant="body1" color="#666">
               Already have an account?{" "}
