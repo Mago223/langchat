@@ -1,27 +1,26 @@
 "use client";
 import {
   Box,
-  Stack,
   TextField,
   Button,
   Typography,
-  Icon,
+  Avatar,
   Link as MuiLink,
+  Grid,
 } from "@mui/material";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { LockOutlined, EmailOutlined } from "@mui/icons-material";
-import Link from "next/link";
+import NextLink from "next/link";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  function handleLogin(e) {
+  const handleLogin = (e) => {
     e.preventDefault();
-    // Add your login logic here
     console.log("Login attempt with:", email, password);
-  }
+  };
 
   return (
     <Box
@@ -42,111 +41,123 @@ function Login() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <Stack
-          direction="column"
-          width="400px"
-          border="1px solid #f48db4"
-          borderRadius="24px"
-          p={4}
-          spacing={4}
-          bgcolor="rgba(255, 255, 255, 0.9)"
+        <Box
           sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            width: "400px",
+            border: "1px solid #f48db4",
+            borderRadius: "24px",
+            p: 4,
+            bgcolor: "rgba(255, 255, 255, 0.9)",
             boxShadow: "0px 8px 30px rgba(244, 141, 180, 0.2)",
           }}
         >
+          <Avatar sx={{ bgcolor: "#f48db4", mb: 2 }}>
+            <LockOutlined />
+          </Avatar>
           <Typography
-            variant="h3"
+            variant="h5"
             textAlign="center"
             color="#f48db4"
             fontWeight="bold"
           >
-            Login
+            Log In
           </Typography>
-          <form onSubmit={handleLogin}>
-            <Stack spacing={3}>
-              <TextField
-                label="Email"
-                type="email"
-                fullWidth
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                variant="outlined"
-                InputProps={{
-                  startAdornment: (
-                    <Icon sx={{ color: "#f48db4", mr: 1 }}>
-                      <EmailOutlined />
-                    </Icon>
-                  ),
-                }}
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    borderRadius: "20px",
-                    "&.Mui-focused fieldset": {
-                      borderColor: "#f48db4",
-                    },
-                  },
-                  "& .MuiInputLabel-root.Mui-focused": {
-                    color: "#f48db4",
-                  },
-                }}
-              />
-              <TextField
-                label="Password"
-                type="password"
-                fullWidth
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                variant="outlined"
-                InputProps={{
-                  startAdornment: (
-                    <Icon sx={{ color: "#f48db4", mr: 1 }}>
-                      <LockOutlined />
-                    </Icon>
-                  ),
-                }}
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    borderRadius: "20px",
-                    "&.Mui-focused fieldset": {
-                      borderColor: "#f48db4",
-                    },
-                  },
-                  "& .MuiInputLabel-root.Mui-focused": {
-                    color: "#f48db4",
-                  },
-                }}
-              />
-              <Button
-                type="submit"
-                variant="contained"
-                fullWidth
-                component={motion.button}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                sx={{
+          <Box
+            component="form"
+            onSubmit={handleLogin}
+            noValidate
+            sx={{ mt: 1, width: "100%" }}
+          >
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              autoFocus
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              InputProps={{
+                startAdornment: (
+                  <EmailOutlined sx={{ color: "#f48db4", mr: 1 }} />
+                ),
+              }}
+              sx={{
+                "& .MuiOutlinedInput-root": {
                   borderRadius: "20px",
-                  backgroundColor: "#f48db4",
-                  "&:hover": {
-                    backgroundColor: "#f06292",
+                  "&.Mui-focused fieldset": {
+                    borderColor: "#f48db4",
                   },
-                  padding: "12px",
-                  fontSize: "1.1rem",
-                  fontWeight: "bold",
-                }}
-              >
-                Login
-              </Button>
-            </Stack>
-          </form>
-          <Box textAlign="center">
-            <Typography variant="body1" color="#666">
-              Don't have an account?{" "}
-              <Link href="/signup" passHref>
+                },
+                "& .MuiInputLabel-root.Mui-focused": {
+                  color: "#f48db4",
+                },
+              }}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              InputProps={{
+                startAdornment: (
+                  <LockOutlined sx={{ color: "#f48db4", mr: 1 }} />
+                ),
+              }}
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: "20px",
+                  "&.Mui-focused fieldset": {
+                    borderColor: "#f48db4",
+                  },
+                },
+                "& .MuiInputLabel-root.Mui-focused": {
+                  color: "#f48db4",
+                },
+              }}
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              component={motion.button}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              sx={{
+                borderRadius: "20px",
+                backgroundColor: "#f48db4",
+                "&:hover": {
+                  backgroundColor: "#f06292",
+                },
+                padding: "12px",
+                fontSize: "1.1rem",
+                fontWeight: "bold",
+                mt: 3,
+                mb: 2,
+              }}
+            >
+              Log In
+            </Button>
+            <Grid container justifyContent="center">
+              <Grid item>
                 <MuiLink
-                  component={motion.a}
-                  whileHover={{ color: "#f06292" }}
+                  component={NextLink}
+                  href="/signup"
+                  variant="body2"
                   sx={{
                     color: "#f48db4",
                     textDecoration: "none",
@@ -156,12 +167,12 @@ function Login() {
                     },
                   }}
                 >
-                  Sign up
+                  {"Don't have an account? Sign Up"}
                 </MuiLink>
-              </Link>
-            </Typography>
+              </Grid>
+            </Grid>
           </Box>
-        </Stack>
+        </Box>
       </motion.div>
     </Box>
   );
