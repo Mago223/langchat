@@ -12,14 +12,29 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { LockOutlined, EmailOutlined } from "@mui/icons-material";
 import NextLink from "next/link";
+import { auth } from "../../firebase";
+import { useRouter } from "next/navigation";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 function Login() {
+  const [error, setError] = useState("");
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = (e) => {
     e.preventDefault();
-    console.log("Login attempt with:", email, password);
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log("User logged in:", user);
+
+        // Redirect to home page after successful login
+        router.push("/home");
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
   };
 
   return (
@@ -129,6 +144,11 @@ function Login() {
                 },
               }}
             />
+            {error && (
+              <Typography color="error" variant="body2" sx={{ mt: 2 }}>
+                {error}
+              </Typography>
+            )}
             <Button
               type="submit"
               fullWidth
