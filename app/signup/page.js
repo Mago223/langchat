@@ -16,12 +16,8 @@ import {
   PersonOutlined,
 } from "@mui/icons-material";
 import Link from "next/link";
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  updateProfile,
-} from "firebase/auth";
 import { useRouter } from "next/navigation";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../../firebase";
 
 function Signup() {
@@ -35,15 +31,11 @@ function Signup() {
     e.preventDefault();
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Signed up
         const user = userCredential.user;
 
         // Update the user's display name
-        updateProfile(user, {
-          displayName: fullName,
-        })
+        updateProfile(user, { displayName: fullName })
           .then(() => {
-            // Redirect the user to the desired page (e.g., dashboard)
             router.push("/home");
           })
           .catch((error) => {
@@ -51,9 +43,7 @@ function Signup() {
           });
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        setError(errorMessage);
+        setError(error.message);
       });
   };
 
@@ -207,25 +197,23 @@ function Signup() {
             </Stack>
           </form>
 
-          <Box textAlign="center">
+          <Box textAlign="center" mt={2}>
             <Typography variant="body1" color="#666">
               Already have an account?{" "}
-              <Link href="/login" passHref>
-                <MuiLink
-                  component={motion.a}
-                  whileHover={{ color: "#f06292" }}
-                  sx={{
-                    color: "#f48db4",
-                    textDecoration: "none",
-                    fontWeight: "bold",
-                    "&:hover": {
-                      textDecoration: "underline",
-                    },
-                  }}
-                >
-                  Log in
-                </MuiLink>
-              </Link>
+              <MuiLink
+                component={Link}
+                href="/login"
+                sx={{
+                  color: "#f48db4",
+                  textDecoration: "none",
+                  fontWeight: "bold",
+                  "&:hover": {
+                    textDecoration: "underline",
+                  },
+                }}
+              >
+                Log in
+              </MuiLink>
             </Typography>
           </Box>
         </Stack>
