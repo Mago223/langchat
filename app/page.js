@@ -38,15 +38,15 @@ function LandingPage() {
 
   return (
     <Box
-      width="100vw"
-      height="100vh"
-      display="flex"
-      flexDirection="column"
       sx={{
+        width: "100vw",
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
         background:
           "linear-gradient(179.4deg, rgb(253, 240, 233) 2.2%, rgb(255, 194, 203) 96.2%)",
-        overflow: "hidden",
-        fontFamily: "'Poppins', sans-serif", // More aesthetic font
       }}
     >
       <Stack
