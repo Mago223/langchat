@@ -1,6 +1,8 @@
 "use client";
 import { Box, Stack, TextField, Button } from "@mui/material";
 import { useState } from "react";
+import { auth } from "../../firebase";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const [messages, setMessages] = useState([
@@ -11,6 +13,16 @@ export default function Home() {
     },
   ]);
   const [message, setMessage] = useState("");
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    try {
+      await auth.signOut();
+      router.push("/login");
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
+  };
 
   const sendMessage = async () => {
     setMessage("");
@@ -128,6 +140,7 @@ export default function Home() {
             </Box>
           ))}
         </Stack>
+
         <Stack direction={"row"} spacing={2}>
           <TextField
             label="Message"
@@ -165,6 +178,19 @@ export default function Home() {
             }}
           >
             Send
+          </Button>
+          <Button
+            variant="contained"
+            onClick={handleLogout}
+            sx={{
+              borderRadius: "20px",
+              backgroundColor: "#f48db4",
+              "&:hover": {
+                backgroundColor: "#f06292",
+              },
+            }}
+          >
+            Logout
           </Button>
         </Stack>
       </Stack>
