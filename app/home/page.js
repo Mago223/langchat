@@ -3,6 +3,7 @@ import { Box, Stack, TextField, Button } from "@mui/material";
 import { useState } from "react";
 import { auth } from "../../firebase";
 import { useRouter } from "next/navigation";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 export default function Home() {
   const [messages, setMessages] = useState([
@@ -190,7 +191,7 @@ export default function Home() {
               },
             }}
           >
-            Logout
+            <LogoutIcon />
           </Button>
         </Stack>
       </Stack>
