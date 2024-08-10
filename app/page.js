@@ -17,22 +17,22 @@ function LandingPage() {
     {
       icon: <Language />,
       title: "Multiple Languages",
-      description: "Learn any language",
+      description: "Explore and learn various languages.",
     },
     {
       icon: <School />,
-      title: "Personalized Lessons",
-      description: "Tailored to your level",
+      title: "Customized Lessons",
+      description: "Lessons tailored to your proficiency level.",
     },
     {
       icon: <Chat />,
-      title: "Interactive Chats",
-      description: "Practice with AI",
+      title: "Conversational Practice",
+      description: "Engage in real-time conversations with AI.",
     },
     {
       icon: <EmojiObjects />,
       title: "Cultural Insights",
-      description: "Beyond just words",
+      description: "Gain insights into the culture behind the language.",
     },
   ];
 
@@ -47,6 +47,7 @@ function LandingPage() {
         alignItems: "center",
         background:
           "linear-gradient(179.4deg, rgb(253, 240, 233) 2.2%, rgb(255, 194, 203) 96.2%)",
+        p: 2,
       }}
     >
       <Stack
@@ -62,9 +63,9 @@ function LandingPage() {
           textAlign="center"
           color="#f48db4"
           fontWeight="bold"
-          sx={{ fontSize: { xs: "2rem", sm: "3rem", md: "4rem" } }}
+          sx={{ fontSize: { xs: "2.5rem", sm: "3.5rem", md: "4.5rem" } }}
         >
-          AI Language Tutor
+          Welcome to LangChat
         </Typography>
 
         <Typography
@@ -72,9 +73,13 @@ function LandingPage() {
           textAlign="center"
           color="#333"
           maxWidth="800px"
-          sx={{ fontSize: { xs: "1rem", sm: "1.25rem", md: "1.5rem" } }}
+          sx={{
+            fontSize: { xs: "1.2rem", sm: "1.5rem", md: "1.75rem" },
+            mt: 2,
+          }}
         >
-          Master any language with personalized, AI-powered lessons
+          Your AI-powered companion for mastering new languages and exploring
+          cultures.
         </Typography>
 
         <Link href="/login" passHref>
@@ -94,7 +99,7 @@ function LandingPage() {
               fontSize: "1.1rem",
             }}
           >
-            Start Learning Now
+            Start Your Journey
           </Button>
         </Link>
 
@@ -102,7 +107,7 @@ function LandingPage() {
           direction="row"
           justifyContent="center"
           spacing={2}
-          sx={{ flexWrap: "wrap" }}
+          sx={{ flexWrap: "wrap", gap: 2 }} // Add gap for better spacing on mobile
         >
           {features.map((feature, index) => (
             <motion.div
@@ -117,6 +122,11 @@ function LandingPage() {
                   height: { xs: 150, sm: 200 },
                   borderRadius: "16px",
                   boxShadow: "0px 8px 30px rgba(244, 141, 180, 0.2)",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  textAlign: "center",
                 }}
               >
                 <CardContent>
@@ -131,7 +141,6 @@ function LandingPage() {
                     </Icon>
                     <Typography
                       variant="h6"
-                      textAlign="center"
                       color="#333"
                       sx={{ fontSize: { xs: "0.9rem", sm: "1rem" } }}
                     >
@@ -139,7 +148,6 @@ function LandingPage() {
                     </Typography>
                     <Typography
                       variant="body2"
-                      textAlign="center"
                       color="#666"
                       sx={{ fontSize: { xs: "0.7rem", sm: "0.8rem" } }}
                     >
