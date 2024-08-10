@@ -11,9 +11,10 @@ import {
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { LockOutlined, EmailOutlined } from "@mui/icons-material";
-import NextLink from "next/link";
+import Link from "next/link";
 import { auth } from "../../firebase";
 import { useRouter } from "next/navigation";
+
 import { signInWithEmailAndPassword } from "firebase/auth";
 
 function Login() {
@@ -171,21 +172,23 @@ function Login() {
             </Button>
             <Grid container justifyContent="center">
               <Grid item>
-                <MuiLink
-                  component={NextLink}
-                  href="/signup"
-                  variant="body2"
-                  sx={{
-                    color: "#f48db4",
-                    textDecoration: "none",
-                    fontWeight: "bold",
-                    "&:hover": {
-                      textDecoration: "underline",
-                    },
-                  }}
-                >
-                  {"Don't have an account? Sign Up"}
-                </MuiLink>
+                <Typography variant="body1" color="#666">
+                  Don't have an account?{" "}
+                  <MuiLink
+                    component={Link}
+                    href="/signup"
+                    sx={{
+                      color: "#f48db4",
+                      textDecoration: "none",
+                      fontWeight: "bold",
+                      "&:hover": {
+                        textDecoration: "underline",
+                      },
+                    }}
+                  >
+                    Sign up
+                  </MuiLink>
+                </Typography>
               </Grid>
             </Grid>
           </Box>
