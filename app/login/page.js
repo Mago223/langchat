@@ -26,9 +26,6 @@ function Login() {
     e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        const user = userCredential.user;
-        console.log("User logged in:", user);
-
         // Redirect to home page after successful login
         router.push("/home");
       })
