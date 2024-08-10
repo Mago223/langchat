@@ -4,8 +4,9 @@ import { useState } from "react";
 import { auth } from "../../firebase";
 import { useRouter } from "next/navigation";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { withAuth } from "../components/auth/withAuth";
 
-export default function Home() {
+function Home() {
   const [messages, setMessages] = useState([
     {
       role: "assistant",
@@ -198,3 +199,5 @@ export default function Home() {
     </Box>
   );
 }
+
+export default withAuth(Home);
