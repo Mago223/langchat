@@ -5,6 +5,7 @@ import { auth } from "../../firebase";
 import { useRouter } from "next/navigation";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { withAuth } from "../components/auth/withAuth";
+import { useMediaQuery } from "@mui/material";
 
 function Home() {
   const [messages, setMessages] = useState([
@@ -62,6 +63,8 @@ function Home() {
     });
   };
 
+  const isMobile = useMediaQuery("(max-width:600px)");
+
   return (
     <Box
       width="100vw"
@@ -77,15 +80,16 @@ function Home() {
     >
       <Stack
         direction={"column"}
-        width="500px"
-        height="700px"
+        width={isMobile ? "100%" : "500px"}
+        height={isMobile ? "90%" : "700px"}
         border="1px solid #f48db4"
-        borderRadius="24px"
+        borderRadius={isMobile ? "0px" : "24px"}
         p={3}
         spacing={3}
         bgcolor="rgba(255, 255, 255, 0.9)"
         sx={{
           boxShadow: "0px 8px 30px rgba(244, 141, 180, 0.2)",
+          maxHeight: isMobile ? "calc(100vh - 20px)" : "700px",
         }}
       >
         <Stack
