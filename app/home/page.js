@@ -12,7 +12,7 @@ function Home() {
     {
       role: "assistant",
       content:
-        "Hi! I'm going to be your language tutor for this lesson, nice to meet you!",
+        "Hi there, welcome to LangChat! I'm your language buddy. Let's start by getting to know your language learning goals. What’s your native language? Which language do you want to learn? What’s your current level in that language?",
     },
   ]);
   const [message, setMessage] = useState("");
