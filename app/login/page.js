@@ -173,7 +173,7 @@ function Login() {
             <Grid container justifyContent="center">
               <Grid item>
                 <Typography variant="body1" color="#666">
-                  Don't have an account?{" "}
+                  Don&apos;t have an account?{" "}
                   <MuiLink
                     component={Link}
                     href="/signup"
