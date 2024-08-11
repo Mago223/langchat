@@ -10,7 +10,7 @@ LangChat is a web application designed to help users learn new languages through
 
 ## Demo
 
-Check out the live version of LangChat [here](https://pantry-tracker-beta-one.vercel.app/).
+Check out the live version of LangChat [here](https://langchat-theta.vercel.app/).
 
 ## Getting Started
 
