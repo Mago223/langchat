@@ -1,7 +1,8 @@
 "use client";
 import {
   Box,
-  Stack,
+  Container,
+  Grid,
   Typography,
   Button,
   Card,
@@ -39,127 +40,135 @@ function LandingPage() {
   return (
     <Box
       sx={{
-        width: "100vw",
-        height: "100vh",
+        minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
-        alignItems: "center",
         background:
           "linear-gradient(179.4deg, rgb(253, 240, 233) 2.2%, rgb(255, 194, 203) 96.2%)",
-        p: 2,
+        py: { xs: 4, md: 8 },
       }}
     >
-      <Stack
-        direction="column"
-        spacing={4}
-        alignItems="center"
-        justifyContent="center"
-        height="100%"
-        px={4}
-      >
-        <Typography
-          variant="h2"
-          textAlign="center"
-          color="#f48db4"
-          fontWeight="bold"
-          sx={{ fontSize: { xs: "2.5rem", sm: "3.5rem", md: "4.5rem" } }}
-        >
-          Welcome to LangChat
-        </Typography>
-
-        <Typography
-          variant="h5"
-          textAlign="center"
-          color="#333"
-          maxWidth="800px"
-          sx={{
-            fontSize: { xs: "1.2rem", sm: "1.5rem", md: "1.75rem" },
-            mt: 2,
-          }}
-        >
-          Your AI-powered companion for mastering new languages and exploring
-          cultures.
-        </Typography>
-
-        <Link href="/login" passHref>
-          <Button
-            component={motion.button}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            variant="contained"
-            size="large"
-            sx={{
-              borderRadius: "20px",
-              backgroundColor: "#f48db4",
-              "&:hover": {
-                backgroundColor: "#f06292",
-              },
-              padding: "12px 24px",
-              fontSize: "1.1rem",
-            }}
-          >
-            Start Your Journey
-          </Button>
-        </Link>
-
-        <Stack
-          direction="row"
-          justifyContent="center"
-          spacing={2}
-          sx={{ flexWrap: "wrap", gap: 2 }} // Add gap for better spacing on mobile
-        >
-          {features.map((feature, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+      <Container maxWidth="lg">
+        <Grid container spacing={4} justifyContent="center" alignItems="center">
+          <Grid item xs={12}>
+            <Typography
+              variant="h2"
+              textAlign="center"
+              color="#f48db4"
+              fontWeight="bold"
+              sx={{ fontSize: { xs: "2rem", sm: "3rem", md: "4rem" } }}
             >
-              <Card
+              Welcome to LangChat
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography
+              variant="h5"
+              textAlign="center"
+              color="#333"
+              sx={{
+                fontSize: { xs: "1rem", sm: "1.25rem", md: "1.5rem" },
+                maxWidth: "800px",
+                margin: "0 auto",
+              }}
+            >
+              Your AI-powered companion for mastering new languages and
+              exploring cultures.
+            </Typography>
+          </Grid>
+          <Grid item xs={12} textAlign="center">
+            <Link href="/login" passHref>
+              <Button
+                component={motion.button}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                variant="contained"
+                size="large"
                 sx={{
-                  width: { xs: 150, sm: 200 },
-                  height: { xs: 150, sm: 200 },
-                  borderRadius: "16px",
-                  boxShadow: "0px 8px 30px rgba(244, 141, 180, 0.2)",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  textAlign: "center",
+                  borderRadius: "20px",
+                  backgroundColor: "#f48db4",
+                  "&:hover": {
+                    backgroundColor: "#f06292",
+                  },
+                  padding: { xs: "10px 20px", md: "12px 24px" },
+                  fontSize: { xs: "0.9rem", md: "1.1rem" },
                 }}
               >
-                <CardContent>
-                  <Stack
-                    alignItems="center"
-                    justifyContent="center"
-                    spacing={2}
-                    height="100%"
+                Start Your Journey
+              </Button>
+            </Link>
+          </Grid>
+          <Grid item xs={12}>
+            <Grid container spacing={2} justifyContent="center">
+              {features.map((feature, index) => (
+                <Grid item xs={6} sm={6} md={3} key={index}>
+                  <motion.div
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
                   >
-                    <Icon sx={{ fontSize: 40, color: "#f48db4" }}>
-                      {feature.icon}
-                    </Icon>
-                    <Typography
-                      variant="h6"
-                      color="#333"
-                      sx={{ fontSize: { xs: "0.9rem", sm: "1rem" } }}
+                    <Card
+                      sx={{
+                        height: { xs: 140, sm: 180, md: 200 },
+                        width: "100%",
+                        borderRadius: "16px",
+                        boxShadow: "0px 8px 30px rgba(244, 141, 180, 0.2)",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        textAlign: "center",
+                      }}
                     >
-                      {feature.title}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      color="#666"
-                      sx={{ fontSize: { xs: "0.7rem", sm: "0.8rem" } }}
-                    >
-                      {feature.description}
-                    </Typography>
-                  </Stack>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
-        </Stack>
-      </Stack>
+                      <CardContent sx={{ p: { xs: 1, sm: 2 } }}>
+                        <Icon
+                          sx={{
+                            fontSize: { xs: 30, sm: 36, md: 40 },
+                            color: "#f48db4",
+                            mb: 1,
+                          }}
+                        >
+                          {feature.icon}
+                        </Icon>
+                        <Typography
+                          variant="h6"
+                          color="#333"
+                          sx={{
+                            fontSize: {
+                              xs: "0.8rem",
+                              sm: "0.9rem",
+                              md: "1rem",
+                            },
+                            mb: 1,
+                            fontWeight: "bold",
+                          }}
+                        >
+                          {feature.title}
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          color="#666"
+                          sx={{
+                            fontSize: {
+                              xs: "0.6rem",
+                              sm: "0.7rem",
+                              md: "0.8rem",
+                            },
+                            lineHeight: 1.2,
+                          }}
+                        >
+                          {feature.description}
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                </Grid>
+              ))}
+            </Grid>
+          </Grid>
+        </Grid>
+      </Container>
     </Box>
   );
 }
